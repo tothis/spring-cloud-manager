@@ -1,0 +1,5 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 返回给前端的json 去除null值属性
+    default-property-inclusion: non_null
