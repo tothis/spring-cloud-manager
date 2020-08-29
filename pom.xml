@@ -11,8 +11,6 @@
     <groupId>com.example</groupId>
     <artifactId>manager</artifactId>
     <version>1.0</version>
-    <name>manager</name>
-    <description>this-manager</description>
     <packaging>pom</packaging>
 
     <modules>
@@ -21,19 +19,49 @@
     </modules>
 
     <properties>
-        <lombok.version>1.18.10</lombok.version>
+        <hutool.version>5.4.0</hutool.version>
+        <lombok.version>1.18.12</lombok.version>
+        <swagger.version>3.0.0</swagger.version>
+        <mysql-connector.version>8.0.21</mysql-connector.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- mysql连接包 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
+            </dependency>
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- hutool工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>com.example</groupId>
             <artifactId>common</artifactId>
             <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- log4j2 -->

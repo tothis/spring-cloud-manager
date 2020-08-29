@@ -1,6 +1,7 @@
 package com.example.common.controller;
 
 import com.example.common.result.ResultEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 基础控制器
@@ -8,9 +9,12 @@ import com.example.common.result.ResultEntity;
  * @author 李磊
  * @since 1.0
  */
-public abstract class BaseController {
+public abstract class BaseController<M> {
 
-    public static final ResultEntity SUCCESS = ok(null);
+    public static final ResultEntity OK = ok(null);
+
+    @Autowired
+    protected M baseService;
 
     public static final <T> ResultEntity<T> ok(T data) {
         ResultEntity<T> entity = new ResultEntity<>();

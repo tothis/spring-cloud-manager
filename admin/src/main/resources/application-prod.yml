@@ -1,0 +1,7 @@
+springfox:
+  documentation:
+    # 关闭ui
+    swagger-ui:
+      enabled: false
+    # 关闭自动启动扫描注解
+    auto-startup: false

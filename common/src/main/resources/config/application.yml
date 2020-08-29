@@ -1,0 +1,31 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    # 返回给前端的json 去除null值属性
+    default-property-inclusion: non_null
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+      select-strategy: not_empty
+      field-strategy: IGNORED
+      # 逻辑删除实体字段名 或在实体属性添加@TableLogic
+      logic-delete-field: state
+      # 逻辑删除配置
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  configuration:
+    # 开启自动驼峰命名规则映射 表字段名`A_B`映射为Java属性`aB`
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:com/example/**/mapper/*mapper.xml
+  type-aliases-package: com.example.**.model
+
+# 自定义变量
+
+# mysql参数
+# useAffectedRows 使用受影响行数替代匹配行数返回
+# serverTimezone 默认utc 时区
+# zeroDateTimeBehavior 操作值为0的DATETIME值 默认EXCEPTION抛出异常 ROUND替换为最近日期 CONVERT_TO_NULL将日期转换成NULL值
+# allowMultiQueries 默认false sql语句可携带分号
+# allowPublicKeyRetrieval 默认false 允许客户端从服务器获取公钥
+mysql-param: useUnicode=true&characterEncoding=utf8&useSSL=false&autoReconnect=true&failOverReadOnly=false&useAffectedRows=true&serverTimezone=GMT&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&allowPublicKeyRetrieval=true
