@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         if (result.hasErrors()) {
             List<FieldError> fieldErrors = result.getFieldErrors();
             fieldErrors.forEach(error -> message.append(' ' + error.getField()
-                    + ' ' + error.getDefaultMessage()));
+                    + "->" + error.getDefaultMessage()));
         }
         ResultEntity entity = new ResultEntity();
         entity.setCode(PARAMETER_ERROR.getCode());

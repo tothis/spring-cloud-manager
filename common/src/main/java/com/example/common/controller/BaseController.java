@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import static com.example.common.constant.ValidatedConstant.ID_FORMAT;
+import static com.example.common.type.MessageType.PARAMETER_ERROR;
 
 /**
  * 基础控制器
@@ -17,22 +18,24 @@ import static com.example.common.constant.ValidatedConstant.ID_FORMAT;
  */
 public abstract class BaseController<M> {
 
-    public static final ResultEntity OK = new ResultEntity<>(MessageType.OK);
+    public static final ResultEntity OK = ok(null);
 
     @Autowired
     protected M baseService;
 
     public static final <T> ResultEntity<T> ok(T data) {
-        return new ResultEntity<T>(MessageType.OK) {{
-            setData(data);
-        }};
+        ResultEntity<T> result = new ResultEntity<>();
+        result.setCode(MessageType.OK.getCode());
+        result.setMessage(MessageType.OK.getMessage());
+        result.setData(data);
+        return result;
     }
 
     @ModelAttribute
     private void checkId(@PathVariable(required = false) Long id) {
         // id小于1
         if (id != null && id.compareTo(1L) == -1) {
-            throw new GlobalException(ID_FORMAT);
+            throw new GlobalException(PARAMETER_ERROR.getCode(), ID_FORMAT);
         }
     }
 }
