@@ -11,6 +11,11 @@ import com.example.admin.model.Task;
 public interface TaskService extends IService<Task> {
 
     /**
+     * 根据name查询
+     */
+    Task getByName(String name);
+
+    /**
      * 分页查询
      */
     Page<Task> page(Task task);

@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.admin.mapper.TaskMapper;
 import com.example.admin.model.Task;
 import com.example.admin.service.TaskService;
-import com.example.common.constant.CommonConstant;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,15 +19,22 @@ import org.springframework.stereotype.Service;
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
 
     @Override
+    public Task getByName(String name) {
+        LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
+                .eq(StrUtil.isNotBlank(name), Task::getTaskName, name);
+        Task result = super.baseMapper.selectOne(queryWrapper);
+        return result;
+    }
+
+    @Override
     public Page<Task> page(Task entity) {
-        Page<Task> page = new Page<>(entity.getPageNum(), entity.getPageSize());
+        Page<Task> page = entity.newPage();
         // 排序
         page.addOrder(OrderItem.asc("id"));
         // 构建查询条件
         LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
                 .like(StrUtil.isNotBlank(entity.getTaskName()), Task::getTaskName, entity.getTaskName())
-                .eq(entity.getTaskState() != null, Task::getTaskState, entity.getTaskState())
-                .eq(Task::getState, CommonConstant.NORMAL);
+                .eq(entity.getTaskState() != null, Task::getTaskState, entity.getTaskState());
         Page<Task> result = super.baseMapper.selectPage(page, queryWrapper);
         return result;
     }

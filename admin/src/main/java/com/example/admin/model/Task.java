@@ -7,6 +7,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
+import static com.example.common.constant.ValidatedConstant.TASK_NAME_BLANK;
+
 /**
  * @author 李磊
  * @since 1.0
@@ -15,6 +19,7 @@ import lombok.Data;
 @Data
 public class Task extends BaseEntity {
 
+    @NotBlank(message = TASK_NAME_BLANK)
     @ApiModelProperty("任务名称")
     private String taskName;
 

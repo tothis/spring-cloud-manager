@@ -1,7 +1,10 @@
 package com.example.common.exception;
 
+import com.example.common.type.MessageType;
 import lombok.Getter;
 import lombok.Setter;
+
+import static com.example.common.type.MessageType.SYSTEM_ERROR;
 
 /**
  * 基础异常
@@ -15,8 +18,13 @@ public class GlobalException extends RuntimeException {
     private long code;
     private String message;
 
-    public GlobalException(ExceptionType type) {
+    public GlobalException(MessageType type) {
         this.code = type.getCode();
         this.message = type.getMessage();
+    }
+
+    public GlobalException(String message) {
+        this.code = SYSTEM_ERROR.getCode();
+        this.message = message;
     }
 }

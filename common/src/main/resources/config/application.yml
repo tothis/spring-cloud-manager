@@ -6,7 +6,8 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      id-type: auto
+      # 默认使用雪花id
+      # id-type: auto
       select-strategy: not_empty
       field-strategy: IGNORED
       # 逻辑删除实体字段名 或在实体属性添加@TableLogic
