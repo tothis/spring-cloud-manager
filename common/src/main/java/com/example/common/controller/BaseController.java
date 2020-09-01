@@ -35,7 +35,7 @@ public abstract class BaseController<M> {
     private void checkId(@PathVariable(required = false) Long id) {
         // id小于1
         if (id != null && id.compareTo(1L) == -1) {
-            throw new GlobalException(PARAMETER_ERROR.getCode(), ID_FORMAT);
+            throw new GlobalException(PARAMETER_ERROR, ID_FORMAT);
         }
     }
 }

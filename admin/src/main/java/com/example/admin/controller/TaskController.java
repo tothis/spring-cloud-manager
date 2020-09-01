@@ -1,7 +1,7 @@
 package com.example.admin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.admin.model.Task;
+import com.example.admin.entity.Task;
 import com.example.admin.service.TaskService;
 import com.example.common.controller.BaseController;
 import com.example.common.entity.ResultEntity;

@@ -1,4 +1,4 @@
-package com.example.admin.model;
+package com.example.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

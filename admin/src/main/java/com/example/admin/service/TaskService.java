@@ -2,7 +2,7 @@ package com.example.admin.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.example.admin.model.Task;
+import com.example.admin.entity.Task;
 
 /**
  * @author 李磊

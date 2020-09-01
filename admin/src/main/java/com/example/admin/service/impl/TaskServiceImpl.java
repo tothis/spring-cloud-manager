@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.admin.entity.Task;
 import com.example.admin.mapper.TaskMapper;
-import com.example.admin.model.Task;
 import com.example.admin.service.TaskService;
 import org.springframework.stereotype.Service;
 

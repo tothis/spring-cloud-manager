@@ -3,7 +3,7 @@ package com.example.common.type;
 import lombok.Getter;
 
 /**
- * 异常类型
+ * 消息类型
  * <p>
  * 100_100_100 项目_模块_功能
  *

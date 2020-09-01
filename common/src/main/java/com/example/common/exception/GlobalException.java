@@ -1,7 +1,6 @@
 package com.example.common.exception;
 
 import com.example.common.type.MessageType;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -10,7 +9,6 @@ import lombok.Getter;
  * @author 李磊
  * @since 1.0
  */
-@AllArgsConstructor
 @Getter
 public class GlobalException extends RuntimeException {
     private long code;
@@ -19,5 +17,10 @@ public class GlobalException extends RuntimeException {
     public GlobalException(MessageType type) {
         this.code = type.getCode();
         this.message = type.getMessage();
+    }
+
+    public GlobalException(MessageType type, String message) {
+        this.code = type.getCode();
+        this.message = type.getMessage() + ' ' + message;
     }
 }
