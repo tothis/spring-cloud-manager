@@ -2,29 +2,109 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.0.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <groupId>com.example</groupId>
-    <artifactId>manager</artifactId>
+    <artifactId>spring-cloud-manager</artifactId>
     <version>1.0</version>
+
     <packaging>pom</packaging>
 
     <modules>
         <module>common</module>
-        <module>admin</module>
+        <module>gateway</module>
+        <module>module</module>
     </modules>
 
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <spring-cloud-alibaba.version>2.2.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
+
+        <springfox.version>3.0.0</springfox.version>
+        <commons-pool2.version>2.8.1</commons-pool2.version>
+        <hutool.version>5.4.0</hutool.version>
         <lombok.version>1.18.12</lombok.version>
+        <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <mysql-connector.version>8.0.21</mysql-connector.version>
+        <spring-boot-maven-plugin.version>2.3.3.RELEASE</spring-boot-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- common -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>common-nacos</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>common-service</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>common-redis</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <!-- redis的lettuce连接池依赖 commons-pool2 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!-- task -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>task-core</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <!-- user -->
+            <dependency>
+                <groupId>com.example</groupId>
+                <artifactId>user-core</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+            <!-- swagger文档 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
             <!-- mysql连接包 -->
             <dependency>
                 <groupId>mysql</groupId>
@@ -36,26 +116,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
         </dependency>
 
-        <!-- log4j2 -->
+        <!-- hutool工具类 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-        <!-- 排除默认日志logging exclusion所有依赖 等于没有依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
         </dependency>
 
         <dependency>
@@ -69,12 +140,24 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-        </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 开启yml中使用双@符合获取pom变量 -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
