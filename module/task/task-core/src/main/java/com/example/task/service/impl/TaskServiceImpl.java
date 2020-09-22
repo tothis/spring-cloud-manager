@@ -1,6 +1,5 @@
 package com.example.task.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -8,6 +7,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.entity.BaseEntity;
+import com.example.common.entity.dto.UserTaskDTO;
+import com.example.common.util.EntityUtil;
 import com.example.task.entity.Task;
 import com.example.task.entity.vo.TaskGetResponse;
 import com.example.task.entity.vo.TaskPageRequest;
@@ -17,7 +18,6 @@ import com.example.task.mapper.TaskMapper;
 import com.example.task.service.TaskService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,8 +30,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void save(TaskSaveRequest request) {
         Task entity = new Task();
-        BeanUtil.copyProperties(request, entity);
+        EntityUtil.copyProperties(request, entity);
         if (entity.getId() == null) {
+            entity.setTaskState(true);
             super.baseMapper.insert(entity);
         } else {
             super.baseMapper.updateById(entity);
@@ -47,22 +48,29 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
                 .like(StrUtil.isNotBlank(request.getTaskName()), Task::getTaskName, request.getTaskName());
 
-        Page taskPage = super.baseMapper.selectPage(page, queryWrapper);
-        List<TaskPageResponse> result = new ArrayList<>();
-        for (Object item : taskPage.getRecords()) {
-            TaskPageResponse response = new TaskPageResponse();
-            BeanUtil.copyProperties(item, response);
-            result.add(response);
-        }
-        taskPage.setRecords(result);
-        return taskPage;
+        Page response = super.baseMapper.selectPage(page, queryWrapper);
+        List<TaskPageResponse> result = EntityUtil.copyListProperties(response.getRecords()
+                , TaskPageResponse.class);
+        response.setRecords(result);
+        return response;
     }
 
     @Override
     public TaskGetResponse getById(Long id) {
         Task task = super.baseMapper.selectById(id);
         TaskGetResponse response = new TaskGetResponse();
-        BeanUtil.copyProperties(task, response);
+        EntityUtil.copyProperties(task, response);
+        return response;
+    }
+
+    @Override
+    public List<UserTaskDTO> selectTaskByUserId(Long userId) {
+        // 构建查询条件
+        LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
+                .like(Task::getCreateBy, userId);
+        List<Task> result = super.baseMapper.selectList(queryWrapper);
+        List<UserTaskDTO> response = EntityUtil.copyListProperties(result
+                , UserTaskDTO.class);
         return response;
     }
 }

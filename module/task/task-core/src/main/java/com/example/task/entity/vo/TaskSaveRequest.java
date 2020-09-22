@@ -25,7 +25,7 @@ public class TaskSaveRequest {
     private String taskName;
 
     @ApiModelProperty(value = TaskDescriptionConstant.DESCRIPTION
-            , example = "任务说明任务说明任务说明")
+            , example = "任务描述任务描述任务描述")
     @Length(min = TaskValidatedConstant.DESCRIPTION_MIN_VALUE
             , max = TaskValidatedConstant.DESCRIPTION_MAX_VALUE
             , message = TaskValidatedConstant.DESCRIPTION)

@@ -3,10 +3,14 @@ package com.example.common.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.common.constant.BaseEntityDescriptionConstant;
+import com.example.common.constant.BaseEntityValidatedConstant;
 import com.example.common.constant.CommonConstant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Past;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,33 +23,42 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity implements Serializable {
 
+    @ApiModelProperty(BaseEntityDescriptionConstant.ID)
+    @Min(value = 0, message = BaseEntityValidatedConstant.ID)
     private Long id;
 
+    @ApiModelProperty(BaseEntityDescriptionConstant.PAGE_NUM)
+    @Min(value = 0, message = BaseEntityValidatedConstant.PAGE_NUM)
     @TableField(exist = false)
-    @ApiModelProperty(value = "起始页", example = "1")
     private Long pageNum;
 
+    @ApiModelProperty(BaseEntityDescriptionConstant.PAGE_SIZE)
+    @Min(value = 0, message = BaseEntityValidatedConstant.PAGE_SIZE)
     @TableField(exist = false)
-    @ApiModelProperty(value = "页显示数量", example = "10")
     private Long pageSize;
 
-    @ApiModelProperty("创建者")
+    @ApiModelProperty(BaseEntityDescriptionConstant.CREATE_BY)
+    @Min(value = 0, message = BaseEntityValidatedConstant.CREATE_BY)
     @TableField(fill = FieldFill.INSERT)
     private Long createBy;
 
-    @ApiModelProperty("创建时间")
+    @ApiModelProperty(BaseEntityDescriptionConstant.CREATE_DATE_TIME)
+    @Past(message = BaseEntityValidatedConstant.CREATE_DATE_TIME)
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createDateTime;
 
-    @ApiModelProperty("修改者")
+    @ApiModelProperty(BaseEntityDescriptionConstant.UPDATE_BY)
+    @Min(value = 0, message = BaseEntityValidatedConstant.UPDATE_BY)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateBy;
 
-    @ApiModelProperty("修改时间")
+    @ApiModelProperty(BaseEntityDescriptionConstant.UPDATE_DATE_TIME)
+    @Past(message = BaseEntityValidatedConstant.UPDATE_DATE_TIME)
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateDateTime;
 
-    @ApiModelProperty("状态 0:正常 1:已删除")
+    @ApiModelProperty(BaseEntityDescriptionConstant.STATE)
+    @Min(value = 0, message = BaseEntityValidatedConstant.STATE)
     @TableField(fill = FieldFill.INSERT)
     private Byte state;
 

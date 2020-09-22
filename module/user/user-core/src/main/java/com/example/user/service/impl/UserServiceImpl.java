@@ -1,7 +1,8 @@
 package com.example.user.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.common.entity.dto.UserTaskDTO;
+import com.example.common.util.EntityUtil;
 import com.example.user.client.TaskClient;
 import com.example.user.entity.User;
 import com.example.user.entity.vo.UserGetResponse;
@@ -14,6 +15,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 李磊
@@ -34,15 +36,15 @@ public class UserServiceImpl extends ServiceImpl<UsersMapper, User>
 
     @Override
     public void save(UserSaveRequest request) {
-        User user = new User();
-        BeanUtil.copyProperties(request, user);
-        super.save(user);
+        User entity = new User();
+        EntityUtil.copyProperties(request, entity);
+        super.save(entity);
     }
 
     @Override
     public void login(UserLoginRequest request) {
         UserLoginRecord record = new UserLoginRecord();
-        BeanUtil.copyProperties(request, record);
+        EntityUtil.copyProperties(request, record);
         record.setCreateDateTime(LocalDateTime.now());
         mongoTemplate.save(record);
     }
@@ -51,7 +53,12 @@ public class UserServiceImpl extends ServiceImpl<UsersMapper, User>
     public UserGetResponse getById(Long id) {
         User entity = super.baseMapper.selectById(id);
         UserGetResponse response = new UserGetResponse();
-        BeanUtil.copyProperties(entity, response);
+        EntityUtil.copyProperties(entity, response);
         return response;
+    }
+
+    @Override
+    public List<UserTaskDTO> getTaskByUserId() {
+        return taskClient.selectById(0L);
     }
 }

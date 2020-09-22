@@ -17,6 +17,9 @@ public class Task extends BaseEntity {
     @ApiModelProperty(TaskDescriptionConstant.TASK_NAME)
     private String taskName;
 
+    @ApiModelProperty(TaskDescriptionConstant.TASK_STATE)
+    private Boolean taskState;
+
     @ApiModelProperty(TaskDescriptionConstant.DESCRIPTION)
     private String description;
 }

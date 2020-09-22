@@ -2,7 +2,7 @@ create table `app_version`
 (
     `id`          bigint(20) unsigned not null auto_increment,
     `code`        varchar(60)         default '' comment '版本号',
-    `os_type`     tinyint(1) unsigned default null comment '系统类型 0:安卓 1:ios',
+    `os_type`     tinyint(1) unsigned default null comment '系统类型 0:安卓 1:IOS',
     `create_by`   bigint(20) unsigned default null comment '创建者',
     `create_date` datetime            default null comment '创建时间',
     `update_by`   bigint(20) unsigned default null comment '修改者',
@@ -14,8 +14,9 @@ create table `app_version`
 create table `task`
 (
     `id`               bigint unsigned not null auto_increment,
-    `task_name`        char(10)         default '' comment '任务名称',
-    `task_state`       bit(1)           default null comment '任务状态 0:关闭(默认) 1:正常',
+    `task_name`        char(10)         default '' comment '项目名称 必填 最多10字',
+    `task_state`       bit(1)           default null comment '任务状态 0:关闭 1:开启(默认)',
+    `description`      varchar(200)     default '' comment '任务说明 选填 10~100字',
     `create_by`        bigint unsigned  default null comment '创建者',
     `create_date_time` datetime         default null comment '创建时间',
     `update_by`        bigint unsigned  default null comment '修改者',
@@ -27,8 +28,8 @@ create table `task`
 create table `user`
 (
     `id`               bigint unsigned not null auto_increment,
-    `user_name`        char(10)         default '' comment '用户昵称 4-10个字符',
-    `password`         char(32)         default '' comment '用户密码密文',
+    `user_name`        char(10)         default '' comment '用户名称 必填 4~10字',
+    `password`         char(32)         default '' comment '用户密码 必填',
     `create_by`        bigint unsigned  default null comment '创建者',
     `create_date_time` datetime         default null comment '创建时间',
     `update_by`        bigint unsigned  default null comment '修改者',
