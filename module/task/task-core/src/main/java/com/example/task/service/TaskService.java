@@ -1,7 +1,7 @@
 package com.example.task.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.common.entity.PageEntity;
 import com.example.common.entity.dto.UserTaskDTO;
 import com.example.task.entity.Task;
 import com.example.task.entity.vo.TaskGetResponse;
@@ -23,7 +23,7 @@ public interface TaskService extends IService<Task> {
      * @param request
      * @return
      */
-    Page<TaskPageResponse> selectPage(TaskPageRequest request);
+    PageEntity<TaskPageResponse> selectPage(TaskPageRequest request);
 
     /**
      * 保存

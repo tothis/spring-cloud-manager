@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.common.entity.BaseEntity;
+import com.example.common.entity.PageEntity;
 import com.example.common.entity.dto.UserTaskDTO;
 import com.example.common.util.EntityUtil;
 import com.example.task.entity.Task;
@@ -40,19 +41,20 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public Page<TaskPageResponse> selectPage(TaskPageRequest request) {
+    public PageEntity<TaskPageResponse> selectPage(TaskPageRequest request) {
         Page<Task> page = BaseEntity.newPage(request.getPageNum());
         // 排序
-        page.addOrder(OrderItem.asc("id"));
+        page.addOrder(OrderItem.asc("createDateTime"));
         // 构建查询条件
         LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
-                .like(StrUtil.isNotBlank(request.getTaskName()), Task::getTaskName, request.getTaskName());
-
-        Page response = super.baseMapper.selectPage(page, queryWrapper);
-        List<TaskPageResponse> result = EntityUtil.copyListProperties(response.getRecords()
-                , TaskPageResponse.class);
-        response.setRecords(result);
-        return response;
+                .like(StrUtil.isNotBlank(request.getTaskName()), Task::getTaskName
+                        , request.getTaskName());
+        Page<Task> response = super.baseMapper.selectPage(page, queryWrapper);
+        List<TaskPageResponse> result = EntityUtil.copyListProperties(response
+                .getRecords(), TaskPageResponse.class);
+        PageEntity<TaskPageResponse> pageEntity = new PageEntity(response.getTotal());
+        pageEntity.setData(result);
+        return pageEntity;
     }
 
     @Override

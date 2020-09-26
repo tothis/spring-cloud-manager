@@ -404,4 +404,11 @@ public class RedisUtil {
     public static long increment(String key) {
         return redisTemplate.opsForValue().increment(key);
     }
+
+    /**
+     * 修改key
+     */
+    public static <K> void rename(K oldKey, K newKey) {
+        redisTemplate.rename(oldKey, newKey);
+    }
 }

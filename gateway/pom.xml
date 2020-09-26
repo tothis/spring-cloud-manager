@@ -17,10 +17,6 @@
             <groupId>com.example</groupId>
             <artifactId>common-nacos</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.example</groupId>
-            <artifactId>common-redis</artifactId>
-        </dependency>
 
         <!-- 网关 -->
         <dependency>

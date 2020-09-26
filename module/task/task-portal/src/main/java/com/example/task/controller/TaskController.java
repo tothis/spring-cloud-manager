@@ -1,7 +1,7 @@
 package com.example.task.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.common.controller.BaseController;
+import com.example.common.entity.PageEntity;
 import com.example.common.entity.ResultEntity;
 import com.example.common.entity.dto.UserTaskDTO;
 import com.example.task.entity.vo.TaskGetResponse;
@@ -50,9 +50,8 @@ public class TaskController extends BaseController {
 
     @ApiOperation("分页查询")
     @PostMapping("page")
-    public ResultEntity<Page<TaskPageResponse>> page(@Valid @RequestBody TaskPageRequest request) {
-        Page<TaskPageResponse> list = taskService.selectPage(request);
-        return ok(list);
+    public ResultEntity<PageEntity<TaskPageResponse>> page(@Valid @RequestBody TaskPageRequest request) {
+        return ok(taskService.selectPage(request));
     }
 
     @ApiIgnore

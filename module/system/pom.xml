@@ -21,6 +21,10 @@
             <groupId>com.example</groupId>
             <artifactId>common-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>common-redis</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

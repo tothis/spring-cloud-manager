@@ -22,16 +22,4 @@
             <artifactId>common-service</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <resources>
-            <!-- maven编译src目录时 打包xml文件 -->
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
