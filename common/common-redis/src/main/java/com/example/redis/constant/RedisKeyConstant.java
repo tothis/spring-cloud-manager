@@ -1,4 +1,4 @@
-package com.example.common.constant;
+package com.example.redis.constant;
 
 /**
  * redis key常量

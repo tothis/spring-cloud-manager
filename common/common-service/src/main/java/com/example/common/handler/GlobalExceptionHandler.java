@@ -25,19 +25,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(GlobalException.class)
     public ResultEntity catchGlobalException(GlobalException e) {
-        return new ResultEntity() {{
-            setCode(e.getCode());
-            setMessage(e.getMessage());
-        }};
+        ResultEntity r = new ResultEntity();
+        r.setCode(e.getCode());
+        r.setMessage(e.getMessage());
+        return r;
     }
 
     @ExceptionHandler(RuntimeException.class)
     public ResultEntity catchRuntimeException(RuntimeException e) {
         e.printStackTrace();
-        return new ResultEntity() {{
-            setCode(MessageType.SYSTEM_ERROR.getCode());
-            setMessage(MessageType.SYSTEM_ERROR.getMessage());
-        }};
+        ResultEntity r = new ResultEntity();
+        r.setCode(MessageType.SYSTEM_ERROR.getCode());
+        r.setMessage(MessageType.SYSTEM_ERROR.getMessage());
+        return r;
     }
 
     /**
@@ -52,10 +52,10 @@ public class GlobalExceptionHandler {
             fieldErrors.forEach(error -> message.append(' ' + error.getField()
                     + "->" + error.getDefaultMessage()));
         }
-        return new ResultEntity() {{
-            setCode(MessageType.PARAMETER_ERROR.getCode());
-            setMessage(message.toString());
-        }};
+        ResultEntity r = new ResultEntity();
+        r.setCode(MessageType.PARAMETER_ERROR.getCode());
+        r.setMessage(message.toString());
+        return r;
     }
 
     /**
@@ -66,19 +66,20 @@ public class GlobalExceptionHandler {
         StringBuilder message = new StringBuilder(MessageType.PARAMETER_ERROR.getMessage());
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         constraintViolations.forEach(item -> message.append(item.getMessage()));
-        return new ResultEntity() {{
-            setCode(MessageType.PARAMETER_ERROR.getCode());
-            setMessage(message.toString());
-        }};
+
+        ResultEntity r = new ResultEntity();
+        r.setCode(MessageType.PARAMETER_ERROR.getCode());
+        r.setMessage(message.toString());
+        return r;
     }
 
     // @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(Exception.class)
     public ResultEntity catchException(Exception e) {
         e.printStackTrace();
-        return new ResultEntity() {{
-            setCode(MessageType.SYSTEM_ERROR.getCode());
-            setMessage(MessageType.SYSTEM_ERROR.getMessage());
-        }};
+        ResultEntity r = new ResultEntity();
+        r.setCode(MessageType.SYSTEM_ERROR.getCode());
+        r.setMessage(MessageType.SYSTEM_ERROR.getMessage());
+        return r;
     }
 }

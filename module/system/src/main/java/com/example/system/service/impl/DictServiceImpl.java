@@ -5,7 +5,7 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.common.constant.RedisKeyConstant;
+import com.example.redis.constant.RedisKeyConstant;
 import com.example.redis.util.RedisUtil;
 import com.example.system.entity.Dict;
 import com.example.system.entity.DictType;

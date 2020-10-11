@@ -3,8 +3,8 @@ spring:
     active: dev
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
-    # 返回给前端的json 去除null值属性
-    default-property-inclusion: non_null
+    # 返回给前端的json 去除null值属性 使用自定义ObjectMapper配置
+    # default-property-inclusion: non_null
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:

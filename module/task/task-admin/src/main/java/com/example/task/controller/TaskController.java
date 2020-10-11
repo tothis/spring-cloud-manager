@@ -1,13 +1,10 @@
 package com.example.task.controller;
 
 import com.example.common.controller.BaseController;
-import com.example.common.entity.ResultEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-import static com.example.common.entity.ResultEntity.ok;
 
 /**
  * @author 李磊
@@ -19,14 +16,14 @@ import static com.example.common.entity.ResultEntity.ok;
 public class TaskController extends BaseController {
 
     @GetMapping
-    public ResultEntity<String> get(String k) {
+    public String get(String k) {
         log.info(k);
-        return ok("admin");
+        return "admin";
     }
 
     @PostMapping
-    public ResultEntity<String> post(@RequestBody Map<String, String> params) {
+    public String post(@RequestBody Map<String, String> params) {
         log.info(params.get("k"));
-        return ok("admin");
+        return "admin";
     }
 }

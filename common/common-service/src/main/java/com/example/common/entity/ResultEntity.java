@@ -14,7 +14,14 @@ import lombok.Setter;
 @Setter
 public class ResultEntity<T> {
 
-    public static final ResultEntity OK = ok(null);
+    private static final ResultEntity OK;
+
+    static {
+        ResultEntity r = new ResultEntity<>();
+        r.setCode(MessageType.OK.getCode());
+        r.setMessage(MessageType.OK.getMessage());
+        OK = r;
+    }
 
     private long code;
 
@@ -23,10 +30,13 @@ public class ResultEntity<T> {
     private T data;
 
     public static <T> ResultEntity<T> ok(T data) {
-        return new ResultEntity<T>() {{
-            setCode(MessageType.OK.getCode());
-            setMessage(MessageType.OK.getMessage());
-            setData(data);
-        }};
+        if (data == null) {
+            return OK;
+        }
+        ResultEntity<T> r = new ResultEntity<>();
+        r.setCode(MessageType.OK.getCode());
+        r.setMessage(MessageType.OK.getMessage());
+        r.setData(data);
+        return r;
     }
 }

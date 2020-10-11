@@ -2,7 +2,6 @@ package com.example.task.controller;
 
 import com.example.common.controller.BaseController;
 import com.example.common.entity.PageEntity;
-import com.example.common.entity.ResultEntity;
 import com.example.common.entity.dto.UserTaskDTO;
 import com.example.task.entity.vo.TaskGetResponse;
 import com.example.task.entity.vo.TaskPageRequest;
@@ -16,9 +15,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 import java.util.List;
-
-import static com.example.common.entity.ResultEntity.OK;
-import static com.example.common.entity.ResultEntity.ok;
 
 /**
  * @author 李磊
@@ -37,21 +33,20 @@ public class TaskController extends BaseController {
 
     @ApiOperation("保存/修改任务")
     @PostMapping
-    public ResultEntity save(@Valid @RequestBody TaskSaveRequest request) {
+    public void save(@Valid @RequestBody TaskSaveRequest request) {
         taskService.save(request);
-        return OK;
     }
 
     @ApiOperation("根据id查询任务详情")
     @GetMapping("{id}")
-    public ResultEntity<TaskGetResponse> get(@PathVariable Long id) {
-        return ok(taskService.getById(id));
+    public TaskGetResponse get(@PathVariable Long id) {
+        return taskService.getById(id);
     }
 
     @ApiOperation("分页查询")
     @PostMapping("page")
-    public ResultEntity<PageEntity<TaskPageResponse>> page(@Valid @RequestBody TaskPageRequest request) {
-        return ok(taskService.selectPage(request));
+    public PageEntity<TaskPageResponse> page(@Valid @RequestBody TaskPageRequest request) {
+        return taskService.selectPage(request);
     }
 
     @ApiIgnore

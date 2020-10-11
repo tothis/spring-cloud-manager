@@ -35,25 +35,15 @@ import static com.example.gateway.filter.CacheBodyGatewayFilter.CACHE_REQUEST_BO
  */
 @Component
 @Slf4j
-@ConditionalOnProperty(value = DecryptFilter.CONFIG_PREFIX + "enabled"
+@ConditionalOnProperty(value = "app.decrypt.enabled"
         , havingValue = "true")
 public class DecryptFilter implements GlobalFilter, Ordered {
 
-    public static final String CONFIG_PREFIX = "spring-cloud-manager.decrypt.";
+    @Value("${app.decrypt.privateKey}")
+    private String privateKey;
 
-    private static String privateKey;
-
-    private static String publicKey;
-
-    @Value("${" + CONFIG_PREFIX + "privateKey}")
-    public void setPrivateKey(String privateKey) {
-        DecryptFilter.privateKey = privateKey;
-    }
-
-    @Value("${" + CONFIG_PREFIX + "publicKey}")
-    public void setPublicKey(String publicKey) {
-        DecryptFilter.publicKey = publicKey;
-    }
+    @Value("${app.decrypt.publicKey}")
+    private String publicKey;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -98,7 +88,7 @@ public class DecryptFilter implements GlobalFilter, Ordered {
     /**
      * 根据参数校验签名
      */
-    private static String decrypt(String params, String sign) {
+    private String decrypt(String params, String sign) {
         RSA rsa = new RSA(privateKey, publicKey);
         /*String paramsContent = URLUtil.encodeAll(params);
         // 私钥加密
