@@ -10,7 +10,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * 任务自动审核延时队列生产者
+ * 任务队列生产者
  *
  * @author 李磊
  * @since 1.0

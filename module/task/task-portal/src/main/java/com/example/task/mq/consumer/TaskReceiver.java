@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * 处理任务自动审核队列消息
+ * 处理任务队列消息
  *
  * @author 李磊
  * @since 1.0

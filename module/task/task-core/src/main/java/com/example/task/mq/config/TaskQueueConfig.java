@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 任务自动审核队列配置
+ * 任务队列配置
  *
  * @author 李磊
  * @since 1.0
