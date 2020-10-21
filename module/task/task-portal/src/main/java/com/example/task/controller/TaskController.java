@@ -7,6 +7,8 @@ import com.example.task.entity.vo.TaskGetResponse;
 import com.example.task.entity.vo.TaskPageRequest;
 import com.example.task.entity.vo.TaskPageResponse;
 import com.example.task.entity.vo.TaskSaveRequest;
+import com.example.task.mq.entity.MessageQueue;
+import com.example.task.mq.producer.TaskProducer;
 import com.example.task.service.TaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,9 +28,11 @@ import java.util.List;
 public class TaskController extends BaseController {
 
     private final TaskService taskService;
+    private final TaskProducer taskProducer;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TaskProducer taskProducer) {
         this.taskService = taskService;
+        this.taskProducer = taskProducer;
     }
 
     @ApiOperation("保存/修改任务")
@@ -53,5 +57,14 @@ public class TaskController extends BaseController {
     @GetMapping("user/{userId}")
     public List<UserTaskDTO> selectTaskByUserId(@PathVariable Long userId) {
         return taskService.selectTaskByUserId(userId);
+    }
+
+    @GetMapping("mq/{time}")
+    public void mq(@PathVariable long time) {
+        MessageQueue messageQueue = new MessageQueue();
+        messageQueue.setId(1);
+        messageQueue.setTime(time);
+        messageQueue.setType(MessageQueue.Type.AUTO_CANCEL);
+        taskProducer.send(messageQueue);
     }
 }

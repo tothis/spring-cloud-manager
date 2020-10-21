@@ -21,9 +21,9 @@
         FROM
             dict_type a
             LEFT JOIN dict b ON b.dict_type_id = a.id
-            AND b.state = 0
         WHERE
             a.state = 0
+            AND b.state = 0
     </select>
 
     <select id="selectSelectList" resultType="dictSelectResponse">
@@ -33,10 +33,10 @@
         FROM
             dict_type a
             LEFT JOIN dict b ON b.dict_type_id = a.id
-            AND a.state = 0
-            AND a.`name` = #{name}
         WHERE
-            b.state = 0
+            a.state = 0
+            AND b.state = 0
+            AND a.`name` = #{name}
     </select>
 
     <select id="selectLabel" resultType="string">
@@ -45,10 +45,10 @@
         FROM
             dict_type a
             LEFT JOIN dict b ON b.dict_type_id = a.id
-            AND a.state = 0
-            AND b.state = 0
         WHERE
-            a.`name` = #{name}
+            a.state = 0
+            AND b.state = 0
+            AND a.`name` = #{name}
             AND b.`value` = #{value}
     </select>
 </mapper>
