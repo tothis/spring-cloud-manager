@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author 李磊
@@ -19,9 +19,9 @@ public class TaskSaveRequest {
 
     @ApiModelProperty(value = TaskDescriptionConstant.TASK_NAME
             , example = "任务名称")
-    @NotEmpty(message = TaskValidatedConstant.TASK_NAME_NOT_NULL)
     @Length(max = TaskValidatedConstant.TASK_NAME_MAX_VALUE
             , message = TaskValidatedConstant.TASK_NAME_MAX)
+    @NotBlank(message = TaskValidatedConstant.TASK_NAME_NOT_BLANK)
     private String taskName;
 
     @ApiModelProperty(value = TaskDescriptionConstant.DESCRIPTION

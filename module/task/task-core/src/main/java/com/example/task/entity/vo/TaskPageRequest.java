@@ -14,6 +14,6 @@ public class TaskPageRequest {
     @ApiModelProperty(TaskDescriptionConstant.TASK_NAME)
     private String taskName;
 
-    @ApiModelProperty("起始页")
+    @ApiModelProperty("开始页数")
     private Long pageNum;
 }

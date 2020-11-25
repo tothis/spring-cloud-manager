@@ -1,6 +1,8 @@
 package com.example.common.util;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.common.entity.PageEntity;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
@@ -22,5 +24,10 @@ public class EntityUtil extends BeanUtil {
             result.add(response);
         }
         return result;
+    }
+
+    public static <T> PageEntity<T> toPage(Page page, Class<T> type) {
+        List<T> list = EntityUtil.copyListProperties(page.getRecords(), type);
+        return new PageEntity(list, page.getTotal());
     }
 }

@@ -8,7 +8,7 @@ package com.example.task.constant;
  */
 public class TaskValidatedConstant {
 
-    public static final String TASK_NAME_NOT_NULL = "任务名称必填";
+    public static final String TASK_NAME_NOT_BLANK = "任务名称必填";
     public static final int TASK_NAME_MAX_VALUE = 10;
     public static final String TASK_NAME_MAX = "任务名称名称最多为" + TASK_NAME_MAX_VALUE + "字";
 

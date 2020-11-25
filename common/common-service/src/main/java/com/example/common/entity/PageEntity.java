@@ -1,5 +1,6 @@
 package com.example.common.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
@@ -11,11 +12,8 @@ import java.util.List;
  * @since 1.0
  */
 @Data
+@AllArgsConstructor
 public class PageEntity<T> {
-    private List<T> data;
-    private long count;
-
-    public PageEntity(long count) {
-        this.count = count;
-    }
+    private final List<T> data;
+    private final long count;
 }

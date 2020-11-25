@@ -18,7 +18,6 @@ public class UserSaveRequest {
     private Long id;
 
     @ApiModelProperty(UserDescriptionConstant.USER_NAME)
-    @Length(message = UserValidatedConstant.USER_NAME_NOT_BLANK)
     @Length(min = UserValidatedConstant.USER_NAME_MIN_VALUE
             , max = UserValidatedConstant.USER_NAME_MAX_VALUE
             , message = UserValidatedConstant.USER_NAME_LENGTH)

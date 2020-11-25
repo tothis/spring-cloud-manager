@@ -50,11 +50,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .like(StrUtil.isNotBlank(request.getTaskName()), Task::getTaskName
                         , request.getTaskName());
         Page<Task> response = super.baseMapper.selectPage(page, queryWrapper);
-        List<TaskPageResponse> result = EntityUtil.copyListProperties(response
-                .getRecords(), TaskPageResponse.class);
-        PageEntity<TaskPageResponse> pageEntity = new PageEntity(response.getTotal());
-        pageEntity.setData(result);
-        return pageEntity;
+        return EntityUtil.toPage(response, TaskPageResponse.class);
     }
 
     @Override
@@ -71,8 +67,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         LambdaQueryWrapper<Task> queryWrapper = Wrappers.<Task>lambdaQuery()
                 .like(Task::getCreateBy, userId);
         List<Task> result = super.baseMapper.selectList(queryWrapper);
-        List<UserTaskDTO> response = EntityUtil.copyListProperties(result
-                , UserTaskDTO.class);
-        return response;
+        return EntityUtil.copyListProperties(result, UserTaskDTO.class);
     }
 }
