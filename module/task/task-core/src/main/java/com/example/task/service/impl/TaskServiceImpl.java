@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.example.common.entity.BaseEntity;
 import com.example.common.entity.PageEntity;
 import com.example.common.entity.dto.UserTaskDTO;
 import com.example.common.util.EntityUtil;
@@ -42,7 +41,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public PageEntity<TaskPageResponse> selectPage(TaskPageRequest request) {
-        Page<Task> page = BaseEntity.newPage(request.getPageNum());
+        Page<Task> page = new Page<>(request.getPageNum(), request.getPageSize());
         // 排序
         page.addOrder(OrderItem.asc("createDateTime"));
         // 构建查询条件

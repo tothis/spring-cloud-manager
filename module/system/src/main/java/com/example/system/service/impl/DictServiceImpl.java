@@ -67,8 +67,11 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict>
             // 字典类型名称发生变化 则修改redis key
             if (!dictType.getName().equals(entity.getName())) {
                 String oldKey = RedisKeyConstant.DICT + dictType.getName();
-                String newKey = RedisKeyConstant.DICT + entity.getName();
-                RedisUtil.rename(oldKey, newKey);
+                // 字典类型下无字典值时 key则不存在
+                if (RedisUtil.hasKey(oldKey)) {
+                    String newKey = RedisKeyConstant.DICT + entity.getName();
+                    RedisUtil.rename(oldKey, newKey);
+                }
             }
             dictTypeMapper.updateById(entity);
         }

@@ -2,10 +2,8 @@ package com.example.common.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.common.constant.BaseEntityDescriptionConstant;
 import com.example.common.constant.BaseEntityValidatedConstant;
-import com.example.common.constant.CommonConstant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -61,12 +59,4 @@ public class BaseEntity implements Serializable {
     @Min(value = 0, message = BaseEntityValidatedConstant.STATE)
     @TableField(fill = FieldFill.INSERT)
     private Byte state;
-
-    public static <T> Page<T> newPage(Long pageNum, Long pageSize) {
-        return new Page<>((pageNum - 1) * pageSize, pageSize);
-    }
-
-    public static <T> Page<T> newPage(Long pageNum) {
-        return newPage(pageNum, CommonConstant.PAGE_SIZE);
-    }
 }

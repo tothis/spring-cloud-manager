@@ -20,10 +20,9 @@
             b.`value`
         FROM
             dict_type a
-            LEFT JOIN dict b ON b.dict_type_id = a.id
+            LEFT JOIN ( SELECT * FROM dict WHERE state = 0 ) b ON b.dict_type_id = a.id
         WHERE
             a.state = 0
-            AND b.state = 0
     </select>
 
     <select id="selectSelectList" resultType="dictSelectResponse">
